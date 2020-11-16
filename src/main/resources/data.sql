@@ -19,10 +19,10 @@ VALUES (0, 2, 4365364, '2025-12-31');
 INSERT INTO Document (version, doc_id, doc_number, doc_date)
 VALUES (0, 2, 7554432, '2026-11-30');
 
-INSERT INTO User (version, first_name, second_name, position, phone, document_id, citizenship_id, is_identified, office_id)
-    VALUES (0, 'John', 'Doe', 'manager', 89990001122, 1, 2, true, 2);
-INSERT INTO User (version, first_name, second_name, position, phone, document_id, citizenship_id, is_identified, office_id)
-    VALUES (0, 'Mary', 'Public', 'hr', 89990002222, 2, 2, true, 1);
+INSERT INTO User (version, first_name, second_name, position, phone, citizenship_id, is_identified, office_id)
+    VALUES (0, 'John', 'Doe', 'manager', 89990001122, 2, true, 2);
+INSERT INTO User (version, first_name, second_name, position, phone, citizenship_id, is_identified, office_id)
+    VALUES (0, 'Mary', 'Public', 'hr', 89990002222, 2, true, 1);
 
 
 

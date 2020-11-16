@@ -67,8 +67,6 @@ CREATE TABLE User (
     middle_name      VARCHAR(30)          COMMENT 'Отчество',
     position         VARCHAR(20) NOT NULL COMMENT 'Должность',
     phone            VARCHAR(11)          COMMENT 'Телефон',
-    document_id      INTEGER     NOT NULL COMMENT 'Идентификатор документа',
-    FOREIGN KEY (document_id) REFERENCES Document (id),
     citizenship_id   INTEGER     NOT NULL COMMENT 'Идентификатор справочника гражданства',
     FOREIGN KEY (citizenship_id) REFERENCES Country (id),
     is_identified    BOOLEAN     NOT NULL COMMENT 'Идентифицирован',
@@ -76,7 +74,6 @@ CREATE TABLE User (
     FOREIGN KEY (office_id) REFERENCES Office (id) ON DELETE CASCADE
 );
 COMMENT ON TABLE User IS 'Сотрудник';
-CREATE UNIQUE INDEX UX_user_documentid ON User (document_id);
 CREATE INDEX IX_user_documentid ON User (citizenship_id);
 CREATE INDEX IX_user_officeid ON User (office_id);
 
