@@ -1,6 +1,15 @@
 package com.bell.dem.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * entity Office
@@ -8,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Office")
 public class Office {
+
     /**
      * Уникальный идентификатор
      */
@@ -24,23 +34,23 @@ public class Office {
     /**
      * Имя
      */
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", length = 50)
     private String name;
 
     /**
      * Адрес
      */
-    @Column(name = "address", length = 50, nullable = false)
+    @Column(name = "address", length = 50)
     private String address;
 
     /**
-     *  Телефон
+     * Телефон
      */
     @Column(name = "phone", length = 11)
     private String phone;
 
     /**
-     *  Активность
+     * Активность
      */
     @Column(name = "is_active")
     private Boolean isActive;
@@ -92,11 +102,11 @@ public class Office {
         this.phone = phone;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 

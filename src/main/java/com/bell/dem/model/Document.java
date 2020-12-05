@@ -1,7 +1,17 @@
 package com.bell.dem.model;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
+import javax.persistence.MapsId;
+
 
 /**
  * entity Document
@@ -22,26 +32,27 @@ public class Document {
     private Integer version;
 
     /**
-     * Идентификатор справочника документа
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doc_id", nullable = false)
-    private Doc doc;
-
-    /**
      * Номер документа
      */
-    @Column(name = "doc_number", length = 20, nullable = false)
-    private String number;
+    @Column(name = "doc_number", length = 20)
+    private String docNumber;
 
     /**
      * Дата документа
      */
-    @Column(name = "doc_date", nullable = false)
-    private LocalDate date;
+    @Column(name = "doc_date", length = 20)
+    private String docDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    /**
+     * Идентификатор справочника документа
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinColumn(name = "doc_code", nullable = false, referencedColumnName = "code")
+    private DocType docType;
+
+    @OneToOne
     @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     public Integer getId() {
@@ -60,28 +71,28 @@ public class Document {
         this.version = version;
     }
 
-    public Doc getDoc() {
-        return doc;
+    public DocType getDocType() {
+        return docType;
     }
 
-    public void setDoc(Doc doc) {
-        this.doc = doc;
+    public void setDocType(DocType docType) {
+        this.docType = docType;
     }
 
-    public String getNumber() {
-        return number;
+    public String getDocNumber() {
+        return docNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDocDate() {
+        return docDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDocDate(String docDate) {
+        this.docDate = docDate;
     }
 
     public User getUser() {

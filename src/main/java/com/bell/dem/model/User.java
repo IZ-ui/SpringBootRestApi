@@ -1,6 +1,17 @@
 package com.bell.dem.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 
 /**
  * entity User
@@ -46,33 +57,29 @@ public class User {
     private String position;
 
     /**
-     *  Телефон
+     * Телефон
      */
     @Column(name = "phone", length = 11)
     private String phone;
 
     /**
-     *  Идентификатор справочника гражданства
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "citizenship_id", nullable = false)
-    private Country country;
-
-    /**
-     *  Идентифицирован
+     * Идентифицирован
      */
     @Column(name = "is_identified")
     private Boolean isIdentified;
 
     /**
-     *  Идентификатор организации
+     * Идентификатор справочника гражданства
      */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizenship_code", referencedColumnName = "code")
+    private Country country;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
+    @OneToOne(mappedBy = "user",cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
     private Document document;
 
     public Integer getId() {
@@ -139,12 +146,12 @@ public class User {
         this.country = country;
     }
 
-    public Boolean getIdentified() {
+    public Boolean getIsIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(Boolean identified) {
-        isIdentified = identified;
+    public void setIsIdentified(Boolean isIdentified) {
+        this.isIdentified = isIdentified;
     }
 
     public Office getOffice() {
@@ -153,5 +160,13 @@ public class User {
 
     public void setOffice(Office office) {
         this.office = office;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
     }
 }

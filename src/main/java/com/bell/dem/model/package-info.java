@@ -1,5 +1,5 @@
 package com.bell.dem.model;
 
 /**
- * Package for entity
+ * Пакет содержит entity
  */

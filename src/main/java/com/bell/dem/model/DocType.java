@@ -7,11 +7,11 @@ import javax.persistence.Version;
 import javax.persistence.Column;
 
 /**
- * entity Country
+ * entity Doc
  */
 @Entity
-@Table(name = "Country")
-public class Country {
+@Table(name = "Doc_type")
+public class DocType {
     /**
      * Код
      */
@@ -26,7 +26,7 @@ public class Country {
     private Integer version;
 
     /**
-     * Страна
+     * Документ
      */
     @Column(name = "name", length = 50, nullable = false)
     private String name;

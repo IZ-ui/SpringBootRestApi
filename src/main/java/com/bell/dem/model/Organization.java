@@ -1,6 +1,12 @@
 package com.bell.dem.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * entity Organization
@@ -22,43 +28,43 @@ public class Organization {
     private Integer version;
 
     /**
-     *  Имя
+     * Имя
      */
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
     /**
-     *  Полное имя
+     * Полное имя
      */
     @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
     /**
-     *  ИНН
+     * ИНН
      */
     @Column(name = "inn", length = 10, nullable = false)
     private String inn;
 
     /**
-     *  КПП
+     * КПП
      */
     @Column(name = "kpp", length = 9, nullable = false)
     private String kpp;
 
     /**
-     *  Адрес
+     * Адрес
      */
     @Column(name = "address", length = 50, nullable = false)
     private String address;
 
     /**
-     *  Телефон
+     * Телефон
      */
     @Column(name = "phone", length = 11)
     private String phone;
 
     /**
-     *  Активность
+     * Активность
      */
     @Column(name = "is_active")
     private Boolean isActive;
@@ -127,11 +133,11 @@ public class Organization {
         this.phone = phone;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 }
