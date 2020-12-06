@@ -2,6 +2,7 @@ package com.bell.dem.controller;
 
 import com.bell.dem.service.OrganizationService;
 import com.bell.dem.view.OfficeOutView;
+import com.bell.dem.view.OrgOffShortView;
 import com.bell.dem.view.OrganizationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +30,7 @@ public class OrganizationController {
      * Метод для маппинга /list
      */
     @PostMapping("/list")
-    public List<OfficeOutView> getOrganizationByFilter(@Validated(OrganizationView.List.class)
+    public List<OrgOffShortView> getOrganizationByFilter(@Validated(OrganizationView.List.class)
                                                        @RequestBody OrganizationView organization) {
         return organizationService.getByFilter(organization);
     }

@@ -1,6 +1,6 @@
 package com.bell.dem.service;
 
-import com.bell.dem.view.OfficeOutView;
+import com.bell.dem.view.OrgOffShortView;
 import com.bell.dem.view.OrganizationView;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface OrganizationService {
     /**
      * Получить Organization по входным параметрам
      */
-    List<OfficeOutView> getByFilter(OrganizationView organization);
+    List<OrgOffShortView> getByFilter(OrganizationView organization);
 
     /**
      * Получить Organization по id

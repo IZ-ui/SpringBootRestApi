@@ -5,7 +5,7 @@ import com.bell.dem.exception.IncorrectInputParameterException;
 import com.bell.dem.exception.NotFoundEntityException;
 import com.bell.dem.model.Organization;
 import com.bell.dem.service.OrganizationService;
-import com.bell.dem.view.OfficeOutView;
+import com.bell.dem.view.OrgOffShortView;
 import com.bell.dem.view.OrganizationView;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
@@ -38,7 +38,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OfficeOutView> getByFilter(OrganizationView organizationView) {
+    public List<OrgOffShortView> getByFilter(OrganizationView organizationView) {
         MapperFacade mapperFacade = mapperFactory.getMapperFacade();
         try {
             List<Organization> listOrganizations = dao.allByFilter(
@@ -46,7 +46,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             if (listOrganizations.isEmpty()) {
                 throw new NotFoundEntityException("Organization");
             }
-            return mapperFacade.mapAsList(listOrganizations, OfficeOutView.class);
+            return mapperFacade.mapAsList(listOrganizations, OrgOffShortView.class);
         } catch (Exception e) {
             throw new NotFoundEntityException("Organization");
         }

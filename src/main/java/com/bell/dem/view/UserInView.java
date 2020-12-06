@@ -96,7 +96,7 @@ public class UserInView {
     /**
      * isIdentified
      */
-    private boolean isIdentified;
+    private Boolean isIdentified;
 
     public Integer getId() {
         return id;
@@ -194,11 +194,11 @@ public class UserInView {
         this.citizenshipCode = citizenshipCode;
     }
 
-    public boolean getIsIdentified() {
+    public Boolean getIsIdentified() {
         return isIdentified;
     }
 
-    public void setIsIdentified(boolean isIdentified) {
+    public void setIsIdentified(Boolean isIdentified) {
         this.isIdentified = isIdentified;
     }
 }
