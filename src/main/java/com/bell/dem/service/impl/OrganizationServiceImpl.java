@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * {@inheritDoc}
@@ -72,10 +69,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void update(OrganizationView organizationView) {
-        if (Objects.isNull(organizationView.getId())) {
-            throw new IncorrectInputParameterException("id");
-        }
-        checkParams(organizationView);
         try {
             Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
             dao.update(organization);
@@ -90,26 +83,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void save(OrganizationView organizationView) {
-        checkParams(organizationView);
         try {
             Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
             dao.save(organization);
         } catch (Exception e) {
             throw new IncorrectInputParameterException("Organization", "name");
-        }
-    }
-
-    private void checkParams(OrganizationView organizationView) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", organizationView.getName());
-        params.put("fullName", organizationView.getFullName());
-        params.put("inn", organizationView.getInn());
-        params.put("kpp", organizationView.getKpp());
-        params.put("address", organizationView.getAddress());
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            if (Objects.isNull(entry.getValue())) {
-                throw new IncorrectInputParameterException(entry.getKey());
-            }
         }
     }
 }

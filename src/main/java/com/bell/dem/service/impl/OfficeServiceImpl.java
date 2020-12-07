@@ -45,9 +45,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional(readOnly = true)
     public List<OrgOffShortView> getByFilter(OfficeInView officeInView) {
         Integer orgId = officeInView.getOrgId();
-        if (Objects.isNull(orgId)) {
-            throw new IncorrectInputParameterException("orgId");
-        }
+//        if (Objects.isNull(orgId)) {
+//            throw new IncorrectInputParameterException("orgId");
+//        }
         MapperFacade mapperFacade = mapperFactory.getMapperFacade();
         Office office = mapperFacade.map(officeInView, Office.class);
         Organization organization = organizationDao.loadById(orgId);
@@ -84,10 +84,10 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public void update(OfficeInView officeInView) {
-        if (Objects.isNull(officeInView.getId())) {
-            throw new IncorrectInputParameterException("id");
-        }
-        checkParams(officeInView);
+//        if (Objects.isNull(officeInView.getId())) {
+//            throw new IncorrectInputParameterException("id");
+//        }
+//        checkParams(officeInView);
         try {
             Office office = mapperFactory.getMapperFacade().map(officeInView, Office.class);
             officeDao.update(office);
@@ -103,9 +103,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public void save(OfficeInView officeInView) {
         Integer orgId = officeInView.getOrgId();
-        if (Objects.isNull(orgId)) {
-            throw new IncorrectInputParameterException("OrgId");
-        }
+//        if (Objects.isNull(orgId)) {
+//            throw new IncorrectInputParameterException("OrgId");
+//        }
         Organization organization = organizationDao.loadById(orgId);
         if (organization == null) {
             throw new NotFoundEntityException("Office's organization");
@@ -114,15 +114,15 @@ public class OfficeServiceImpl implements OfficeService {
         officeNew.setOrganization(organization);
         officeDao.save(officeNew);
     }
-
-    private void checkParams(OfficeInView officeInView) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", officeInView.getName());
-        params.put("address", officeInView.getAddress());
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            if (Objects.isNull(entry.getValue())) {
-                throw new IncorrectInputParameterException(entry.getKey());
-            }
-        }
-    }
+//
+//    private void checkParams(OfficeInView officeInView) {
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("name", officeInView.getName());
+//        params.put("address", officeInView.getAddress());
+//        for (Map.Entry<String, Object> entry : params.entrySet()) {
+//            if (Objects.isNull(entry.getValue())) {
+//                throw new IncorrectInputParameterException(entry.getKey());
+//            }
+//        }
+//    }
 }

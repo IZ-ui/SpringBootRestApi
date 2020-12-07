@@ -1,8 +1,13 @@
 package com.bell.dem.controller;
 
 import com.bell.dem.service.UserService;
-import com.bell.dem.view.*;
+import com.bell.dem.util.Validator;
+
+import com.bell.dem.view.UserInView;
+import com.bell.dem.view.UserOutView;
+import com.bell.dem.view.UserShortOutView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +40,9 @@ public class UserController {
      */
     @PostMapping("/list")
     public List<UserShortOutView> getUserByFilter(@Validated(UserInView.List.class)
-                                                  @RequestBody UserInView userInView) {
+                                                  @RequestBody UserInView userInView,
+                                                  BindingResult result) {
+        Validator.validate(result);
         return userService.getByFilter(userInView);
     }
 
@@ -50,8 +57,10 @@ public class UserController {
     /**
      * Метод для маппинга /update
      */
-    @PostMapping(value = {"/update"}, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public void updateUser(@RequestBody @Validated(UserInView.Update.class) UserInView userInView) {
+    @PostMapping("/update")
+    public void updateUser(@RequestBody @Validated(UserInView.Update.class) UserInView userInView,
+                           BindingResult result) {
+        Validator.validate(result);
         userService.update(userInView);
     }
 
@@ -59,7 +68,9 @@ public class UserController {
      * Метод для маппинга /save
      */
     @PostMapping("/save")
-    public void createUser(@Validated(UserInView.Save.class) @RequestBody UserInView userInView) {
+    public void createUser(@Validated(UserInView.Save.class) @RequestBody UserInView userInView,
+                           BindingResult result) {
+        Validator.validate(result);
         userService.save(userInView);
     }
 }

@@ -1,12 +1,19 @@
 package com.bell.dem.controller;
 
 import com.bell.dem.service.OrganizationService;
-import com.bell.dem.view.OfficeOutView;
+import com.bell.dem.util.Validator;
 import com.bell.dem.view.OrgOffShortView;
 import com.bell.dem.view.OrganizationView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.List;
 
@@ -31,7 +38,9 @@ public class OrganizationController {
      */
     @PostMapping("/list")
     public List<OrgOffShortView> getOrganizationByFilter(@Validated(OrganizationView.List.class)
-                                                       @RequestBody OrganizationView organization) {
+                                                         @RequestBody OrganizationView organization,
+                                                         BindingResult result) {
+        Validator.validate(result);
         return organizationService.getByFilter(organization);
     }
 
@@ -46,16 +55,20 @@ public class OrganizationController {
     /**
      * Метод для маппинга /update
      */
-    @PostMapping(value = {"/update"}, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public void updateOrganization(@RequestBody @Validated(OrganizationView.Update.class) OrganizationView organizationView) {
+    @PostMapping("/update")
+    public void updateOrganization(@RequestBody @Validated(OrganizationView.Update.class) OrganizationView organizationView,
+                                   BindingResult result) {
+        Validator.validate(result);
         organizationService.update(organizationView);
     }
 
     /**
      * Метод для маппинга /save
      */
-    @PostMapping(value = {"/save"}, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public void createOrganization(@RequestBody @Validated(OrganizationView.Save.class) OrganizationView organizationView) {
+    @PostMapping("/save")
+    public void createOrganization(@RequestBody @Validated(OrganizationView.Save.class) OrganizationView organizationView,
+                                   BindingResult result) {
+        Validator.validate(result);
         organizationService.save(organizationView);
     }
 }

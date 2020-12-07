@@ -1,6 +1,7 @@
 package com.bell.dem.view;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * DTO в качестве входного параметра для методов User
@@ -28,14 +29,13 @@ public class UserInView {
     /**
      * id
      */
-    @NotNull(message = "ID не может быть пустым")
     @NotNull(groups = {UserInView.Update.class}, message = "id не должен быть пустым")
     private Integer id;
 
     /**
      * officeId
      */
-    @NotNull(groups = {UserInView.List.class, UserInView.Update.class, UserInView.Save.class},
+    @NotNull(groups = {UserInView.List.class, UserInView.Save.class},
             message = "ID офиса не должен быть пустым")
     private Integer officeId;
 
@@ -44,16 +44,19 @@ public class UserInView {
      */
     @NotNull(groups = {UserInView.Update.class, UserInView.Save.class},
             message = "Имя не должно быть пустым")
+    @Size(max = 30, message = "Длина имени не более 30 символов")
     private String firstName;
 
     /**
      * secondName
      */
+    @Size(max = 30, message = "Длина фамилии не более 30 символов")
     private String secondName;
 
     /**
      * middleName
      */
+    @Size(max = 30, message = "Длина отчества не более 30 символов")
     private String middleName;
 
     /**
@@ -61,11 +64,13 @@ public class UserInView {
      */
     @NotNull(groups = {UserInView.Update.class, UserInView.Save.class},
             message = "Должность не должна быть пустой")
+    @Size(max = 20, message = "Длина должности не более 20 символов")
     private String position;
 
     /**
      * phone
      */
+    @Size(max = 11, message = "Длина телефона не более 11 цифр")
     private String phone;
 
     /**

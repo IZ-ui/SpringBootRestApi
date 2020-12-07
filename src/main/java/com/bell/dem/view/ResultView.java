@@ -3,17 +3,17 @@ package com.bell.dem.view;
 /**
  * DTO для оборачивания успешного ответа void методов Controller
  */
-public class Result {
+public class ResultView {
 
     /**
      * Поле для оборачивания ответа
      */
     private String result;
 
-    public Result() {
+    public ResultView() {
     }
 
-    public Result(String result) {
+    public ResultView(String result) {
         this.result = result;
     }
 

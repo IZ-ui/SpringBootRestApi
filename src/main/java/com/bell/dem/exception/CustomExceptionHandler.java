@@ -1,30 +1,40 @@
 package com.bell.dem.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * CustomExceptionHandler для отлавливания custom exception
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class CustomExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(CustomExceptionHandler.class);
+    private static final String INCORRECT_INPUT_PARAMETER_ERROR_CODE = "422";
+    private static final String ENTITY_NOT_FOUND_ERROR_CODE = "404";
+    private static final String OPERATION_DENIED_ERROR_CODE = "403";
+
+    /**
+     * Обработка ошибок валидации входных параметров от пользователя
+     */
+    @ExceptionHandler(CustomValidationException.class)
+    public ErrorView handleRequestDataValidationException(CustomValidationException exception) {
+        log.error("Incorrect input parameter, code:" + INCORRECT_INPUT_PARAMETER_ERROR_CODE, exception);
+        return new ErrorView(INCORRECT_INPUT_PARAMETER_ERROR_CODE);
+    }
+
     @ExceptionHandler(value = NotFoundEntityException.class)
-    public ResponseEntity<Object> exception(NotFoundEntityException exception) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("error", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    public ErrorView exception(NotFoundEntityException exception) {
+        log.error("Entity not found, code:" + ENTITY_NOT_FOUND_ERROR_CODE, exception);
+        return new ErrorView(ENTITY_NOT_FOUND_ERROR_CODE);
     }
 
     @ExceptionHandler(value = IncorrectInputParameterException.class)
-    public ResponseEntity<Object> exception(IncorrectInputParameterException exception) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("error", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    public ErrorView exception(IncorrectInputParameterException exception) {
+        log.error("Can't add this entity, code:" + OPERATION_DENIED_ERROR_CODE, exception);
+        return new ErrorView(OPERATION_DENIED_ERROR_CODE);
     }
 }

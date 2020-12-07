@@ -20,9 +20,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -76,12 +74,6 @@ public class UserServiceImpl implements UserService {
         if (users.isEmpty()) {
             throw new NotFoundEntityException("User");
         }
-//        mapperFactory
-//                .classMap(User.class, UserOutView.class)
-//                .field("document.docType.code","docName")
-//                .field("country.code","citizenshipCode")
-//                .byDefault()
-//                .register();
         return users.stream()
                 .map(mapperFactory.getMapperFacade(User.class, UserShortOutView.class)::map)
                 .collect(Collectors.toList());
@@ -117,11 +109,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(UserInView userInView) {
-        if (Objects.isNull(userInView.getId())) {
-            throw new IncorrectInputParameterException("id");
-        }
-        checkParams(userInView);
-
         mapperFactory
                 .classMap(UserInView.class, User.class)
                 .field("docDate", "document.docDate")
@@ -186,10 +173,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void save(UserInView userInView) {
         Integer officeId = userInView.getOfficeId();
-        if (Objects.isNull(officeId)) {
-            throw new IncorrectInputParameterException("officeId");
-        }
-        checkParams(userInView);
 
         mapperFactory
                 .classMap(UserInView.class, User.class)
@@ -227,16 +210,5 @@ public class UserServiceImpl implements UserService {
             newUser.setDocument(newUserDocument);
         }
         userDao.save(newUser);
-    }
-
-    private void checkParams(UserInView userInView) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("firstName", userInView.getFirstName());
-        params.put("position", userInView.getPosition());
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            if (Objects.isNull(entry.getValue())) {
-                throw new IncorrectInputParameterException(entry.getKey());
-            }
-        }
     }
 }

@@ -30,35 +30,33 @@ public class OfficeInView {
     /**
      * id
      */
-    @NotNull(message = "ID не может быть пустым")
-    @NotNull(groups = {OrganizationView.Update.class}, message = "id не должен быть пустым")
+    @NotNull(groups = {OfficeInView.Update.class}, message = "id не должен быть пустым")
     private Integer id;
 
     /**
      * orgId
      */
-    @NotNull(message = "Office ID не может быть пустым")
-    @NotNull(groups = {OrganizationView.List.class, OrganizationView.Save.class},
-            message = "ID организации не может быть пустым")
+    @NotNull(groups = {OfficeInView.Save.class}, message = "ID организации не может быть пустым")
     private Integer orgId;
 
     /**
      * name
      */
-    @NotEmpty(groups = {OrganizationView.Update.class},
-            message = "Название не должно быть пустым")
+    @NotEmpty(groups = {OfficeInView.Update.class}, message = "Название не должно быть пустым")
+    @Size(max = 50, message = "Длина имени не более 50 символов")
     private String name;
 
     /**
      * address
      */
-    @NotEmpty(groups = {OrganizationView.Update.class}, message = "Адрес должен быть заполнен")
+    @NotEmpty(groups = {OfficeInView.Update.class}, message = "Адрес должен быть заполнен")
+    @Size(max = 50, message = "Длина адреса не более 50 символов")
     private String address;
 
     /**
      * phone
      */
-    @Size(min = 11, max = 11, message = "Длина ровно 11 цифр")
+    @Size(max = 11, message = "Длина телефона не более 11 цифр")
     private String phone;
 
     /**

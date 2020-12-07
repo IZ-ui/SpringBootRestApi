@@ -38,6 +38,7 @@ public class OrganizationView {
      */
     @NotEmpty(groups = {List.class, Update.class, Save.class},
             message = "Название не должно быть пустым")
+    @Size(max = 20, message = "Длина имени не более 20 символов")
     private String name;
 
     /**
@@ -45,14 +46,15 @@ public class OrganizationView {
      */
     @NotEmpty(groups = {Update.class, Save.class},
             message = "Полное название не должно быть пустым")
+    @Size(max = 50, message = "Длина полного имени не более 50 символов")
     private String fullName;
 
     /**
      * inn
      */
     @NotEmpty(groups = {Update.class, Save.class}, message = "ИНН не должно быть пустым")
-    @Size(min = 12, max = 12, groups = {Update.class, Save.class},
-            message = "Длина ровно 12 цифр")
+    @Size(min = 10, max = 10, groups = {Update.class, Save.class},
+            message = "Длина ИНН ровно 10 цифр")
     private String inn;
 
     /**
@@ -60,19 +62,20 @@ public class OrganizationView {
      */
     @NotEmpty(groups = {Update.class, Save.class}, message = "КПП не должно быть пустым")
     @Size(min = 9, max = 9, groups = {Update.class, Save.class},
-            message = "Длина ровно 9 цифр")
+            message = "Длина КПП ровно 9 цифр")
     private String kpp;
 
     /**
      * address
      */
     @NotEmpty(groups = {Update.class, Save.class}, message = "Адрес должен быть заполнен")
+    @Size(max = 50, message = "Длина адреса не более 50 символов")
     private String address;
 
     /**
      * phone
      */
-    @Size(min = 11, max = 11)
+    @Size(max = 11, message = "Длина телефона не более 11 цифр")
     private String phone;
 
     /**
