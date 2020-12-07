@@ -50,14 +50,16 @@ public class OfficeControllerTest {
 
     @Test
     public void getByFilterErrorTest() throws Exception {
+        OfficeInView officeInView = new OfficeInView();
+        officeInView.setOrgId(99);
         mockMvc.perform(
                 post("/api/office/list")
-                        .content("{\"orgId\":null}")
+                        .content(om.writeValueAsString(officeInView))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("orgId must be not empty")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 404")));
     }
 
     @Test
@@ -85,8 +87,8 @@ public class OfficeControllerTest {
                 get("/api/office/99"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("Office with ID 99 not found")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 404")));
     }
 
     @Test
@@ -117,8 +119,9 @@ public class OfficeControllerTest {
                 post("/api/office/update")
                         .content(om.writeValueAsString(officeInView))
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.error", is("address must be not empty")));
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     @Test
@@ -147,8 +150,9 @@ public class OfficeControllerTest {
                 post("/api/office/save")
                         .content(om.writeValueAsString(officeInView))
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.error", is("OrgId must be not empty")));
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     private void getByView(OfficeInView officeInView) throws Exception {

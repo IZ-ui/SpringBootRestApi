@@ -55,8 +55,8 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("officeId must be not empty")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     @Test
@@ -89,8 +89,8 @@ public class UserControllerTest {
                 get("/api/user/99"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("User with ID 99 not found")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 404")));
     }
 
     @Test
@@ -120,8 +120,8 @@ public class UserControllerTest {
                         .content(om.writeValueAsString(userInView))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.error", is("position must be not empty")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     @Test
@@ -150,7 +150,8 @@ public class UserControllerTest {
                         .content(om.writeValueAsString(userInView))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.error", is("position must be not empty")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     private void getByView(UserInView userInView) throws Exception {

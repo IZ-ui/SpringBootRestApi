@@ -51,8 +51,8 @@ public class OrganizationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("Organization not found")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     @Test
@@ -86,8 +86,8 @@ public class OrganizationControllerTest {
                 get("/api/organization/99"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.error", is("Organization with ID 99 not found")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 404")));
     }
 
     @Test
@@ -124,8 +124,9 @@ public class OrganizationControllerTest {
                 post("/api/organization/update")
                         .content(om.writeValueAsString(organizationView))
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.error", is("address must be not empty")));
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     @Test
@@ -160,8 +161,8 @@ public class OrganizationControllerTest {
                         .content(om.writeValueAsString(organizationView))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.error", is("address must be not empty")));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error", is("Ошибка сервера 422")));
     }
 
     private void getByView(OrganizationView organizationView) throws Exception {
